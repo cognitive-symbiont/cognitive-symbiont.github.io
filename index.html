@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>From Autonomous Agents to Cognitive Symbionts</title>
+<meta name="description" content="From Autonomous Agents to Cognitive Symbionts: toward AI-augmented human intelligence.">
+<meta property="og:title" content="From Autonomous Agents to Cognitive Symbionts">
+<meta property="og:description" content="Toward AI-Augmented Human Intelligence.">
+<meta property="og:image" content="https://cognitive-symbiont.github.io/assets/video/hero.webp">
+<meta name="theme-color" content="#070b16">
+<link rel="icon" href="assets/img/favicon.ico" sizes="32x32">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Italianno&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css?v=4.0">
+</head>
+<body data-state="loading" data-lens="">
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-orb"><span></span><span></span><span></span></div>
+</div>
+
+<nav id="nav">
+  <a href="https://arxiv.org/abs/2607.27201" class="pill ghost" target="_blank" rel="noopener">Perspective Paper</a>
+</nav>
+
+<!-- The street: one sticky stage for two screens. Screen 1 is the hero (click her or the robot to open the lens);
+     screen 2 raises a transparent mask over the same, still-playing video and names the two kinds of individual. -->
+<section id="street" class="street">
+  <div class="snap" aria-hidden="true"></div>
+  <div class="snap snap-2" aria-hidden="true"></div>
+  <div class="stage" id="stage">
+    <video id="hero" class="layer" muted playsinline loop autoplay preload="auto" poster="assets/video/hero.webp">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+      <source src="assets/video/hero.webm" type="video/webm">
+    </video>
+    <div class="veil" id="veil"></div>
+    <div class="shade"></div>
+
+    <!-- screen 2: the frontier mask, its tint and the outline pass (black background, screen-blended) -->
+    <div class="masked" id="masked">
+      <div class="tint"></div>
+      <video id="outline" class="layer" muted playsinline loop preload="auto">
+        <source src="assets/video/outline.mp4" type="video/mp4">
+        <source src="assets/video/outline.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="frontier" id="frontier"><span></span></div>
+
+    <!-- everything below is placed on the video's own frame (1920 x 1080), wherever object-fit puts it -->
+    <div class="frame" id="frame">
+      <svg class="lens-svg" id="lensSvg" viewBox="0 0 1920 1080" aria-hidden="true">
+        <defs>
+          <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".95"/>
+            <stop offset="32%" stop-color="#9fe9ff" stop-opacity=".7"/>
+            <stop offset="68%" stop-color="#7a6cff" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#7a6cff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff6d8" stop-opacity=".95"/>
+            <stop offset="40%" stop-color="#ffd166" stop-opacity=".55"/>
+            <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- her symbiont -->
+        <g id="gHuman">
+          <ellipse id="hRing" class="ring-own" rx="10" ry="10"/>
+          <g id="hThreads"></g>
+          <path id="hBack" class="back"/>
+          <circle id="hPulse" class="pulse" r="5"/>
+          <g id="hNodes"></g>
+          <g id="hOrb">
+            <circle class="orb-halo" r="110" fill="url(#orbGrad)"/>
+            <circle class="orb-ripple" r="40"/>
+            <circle class="orb-ring" r="56"/>
+            <circle class="orb-core" r="17"/>
+          </g>
+        </g>
+        <!-- the robot -->
+        <g id="gRobot">
+          <ellipse id="rRing" class="ring-robot" rx="10" ry="10"/>
+          <g id="rThreads"></g>
+          <g id="rCore">
+            <circle class="core-halo" r="90" fill="url(#coreGrad)"/>
+            <circle class="core-ripple" r="34"/>
+            <circle class="core-ring" r="34"/>
+            <circle class="core-dot" r="9"/>
+          </g>
+        </g>
+      </svg>
+      <div class="tags" id="tags"></div>
+
+      <button class="hit" id="hitHuman" data-who="human" aria-label="Look closer at the AI-augmented human">
+        <span class="hit-tag"><em>AI-augmented human</em><small>look closer</small></span>
+      </button>
+      <button class="hit robot" id="hitRobot" data-who="robot" aria-label="Look closer at the robot">
+        <span class="hit-tag"><em>AI as individual</em><small>look closer</small></span>
+      </button>
+    </div>
+
+    <header class="hero-copy" id="heroCopy">
+      <p class="eyebrow">A perspective on future physical AI</p>
+      <h1>
+        <span class="l1">From <span class="script">Autonomous Agents</span></span>
+        <span class="l2">to <span class="script">Cognitive Symbionts</span></span>
+      </h1>
+      <p class="lede"><span>Toward AI-Augmented Human Intelligence</span> <abbr title="AI-Augmented Human Intelligence">(AHI)</abbr></p>
+    </header>
+
+    <div class="scroll-cue" id="scrollCue"><span>Scroll</span><i></i></div>
+
+    <!-- the lens: what a cognitive symbiont is, told on the moving picture -->
+    <aside class="lens" id="lens" aria-live="polite">
+      <div class="lens-card" data-for="human">
+        <p class="lens-kicker"><span>Cognitive Symbiont</span></p>
+        <p class="lens-title">An AI that lives with one person.</p>
+        <ol class="lens-steps">
+          <li data-step="0">Senses through what she wears.</li>
+          <li data-step="1">Keeps her life, and models her world and her mind.</li>
+          <li data-step="2">Speaks only to her, at the right moment.</li>
+          <li data-step="3">Most of the time, says nothing.</li>
+          <li data-step="4">Answers to her alone.</li>
+        </ol>
+      </div>
+      <div class="lens-card" data-for="robot">
+        <p class="lens-kicker"><span>AI as individual</span></p>
+        <p class="lens-title">An AI with a body and goals of its own.</p>
+        <ol class="lens-steps">
+          <li data-step="0">A cognitive core like a symbiont's: memory, models of situation and mind, timing.</li>
+          <li data-step="1">Its own body: it senses and acts for itself.</li>
+          <li data-step="2">Its own goals and its own responsibility: it acts in the world in its own right.</li>
+        </ol>
+      </div>
+      <div class="lens-switch" role="tablist">
+        <button data-who="human" role="tab">Her symbiont</button>
+        <button data-who="robot" role="tab">The robot</button>
+        <button class="close" data-close aria-label="Close">&times;</button>
+      </div>
+    </aside>
+
+    <!-- screen 2: the two forms of individual in future physical AI -->
+    <div class="types" id="types">
+      <p class="types-kicker">Future physical AI will exist as two kinds of individual</p>
+      <article class="type human">
+        <p class="type-name"><i></i>AI-augmented human</p>
+        <p class="type-body">A person with a <b>cognitive symbiont</b>, an AI that strengthens their own thinking. Through wearables and other devices it talks with them in private and with the world on their behalf, helping with everything from errands to memory, decisions and relationships.</p>
+      </article>
+      <article class="type robot">
+        <p class="type-name"><i></i>AI as individual</p>
+        <p class="type-body">An embodied robot. The AI has a cognitive core, a body and goals of its own, and senses and acts in the world in its own right.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- six cases, from errands up the ladder to symbiont meeting symbiont. Each card's beats follow the clip's own time. -->
+<section id="day" class="day">
+  <article class="panel" data-scene="errands" data-pos="br">
+    <video class="panel-video" muted playsinline loop preload="none" poster="assets/video/m_errands.webp">
+      <source data-src="assets/video/m_errands.mp4" type="video/mp4">
+      <source data-src="assets/video/m_errands.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <div class="cue cue-hud list" data-nx="0.392" data-ny="0.20" data-from="0.35">
+        <span data-from="0.4">&check; LIS &middot; Sun 09:40, aisle</span>
+        <span data-from="0.75">&check; hotel &middot; 6 min to the venue</span>
+        <span data-from="1.1">&check; coffee with Okafor &middot; Tue</span>
+        <span data-from="1.45">&check; reviewer reply drafted &middot; test fixed</span>
+        <span class="ask" data-from="1.9" data-to="2.9">&euro;612 &middot; approve?</span>
+        <span class="ok" data-from="2.9">&check; &euro;612 approved</span>
+      </div>
+      <div class="cue cue-pulse" data-nx="0.37" data-ny="0.725" data-from="2.3" data-to="3.5"><i></i></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">01</span>Getting things done</p>
+      <h3 class="case-title">Three errands, one question.</h3>
+      <p class="case-scene">Dawn, before work. Her talk in Lisbon was accepted overnight, and her laptop stays closed.</p>
+      <ol class="beats">
+        <li data-t="0"><b>knows</b><span>Her Monday meeting cannot move, she avoids red-eyes, and she hoped to meet Ana Okafor in Lisbon.</span></li>
+        <li data-t="0.9"><b>does</b><span>Books the flight and a hotel by the venue, sets coffee with Okafor, drafts her reviewer reply, fixes last night's failing test.</span></li>
+        <li data-t="1.9"><b>asks</b><span>Only about what cannot be undone: the payment. One finger tap, read by her band.</span></li>
+      </ol>
+      <dl class="contrast"><dt>Without</dt><dd>An agent asks for dates, budget, seats and a hotel.</dd><dt>With</dt><dd>No questions, and one tap.</dd></dl>
+    </aside>
+  </article>
+
+  <article class="panel" data-scene="meeting" data-pos="br">
+    <video class="panel-video" muted playsinline preload="none" data-once poster="assets/video/m_meeting.webp">
+      <source data-src="assets/video/m_meeting.mp4" type="video/mp4">
+      <source data-src="assets/video/m_meeting.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <div class="cue cue-hud" data-nx="0.405" data-ny="0.292" data-from="4.8"><span>2023 pilot &middot; 72% retained &middot; n = 410</span></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">02</span>Thinking with her</p>
+      <h3 class="case-title">The figure, before she is asked.</h3>
+      <p class="case-scene">A colleague turns to her about a study she ran three years ago. She remembers the finding but not the number.</p>
+      <ol class="beats">
+        <li data-t="0"><b>hears</b><span>The question taking shape, a sentence before it reaches her.</span></li>
+        <li data-t="3.2"><b>finds</b><span>Her own 2023 report, table 3.</span></li>
+        <li data-t="4.8"><b>shows</b><span>One line inside her glasses. She answers in her own words.</span></li>
+      </ol>
+      <dl class="contrast"><dt>Without</dt><dd>&ldquo;I'll get back to you on that.&rdquo;</dd><dt>With</dt><dd>The number, while it still matters.</dd></dl>
+    </aside>
+  </article>
+
+  <article class="panel" data-scene="desk" data-pos="bl">
+    <video class="panel-video" muted playsinline loop preload="none" poster="assets/video/m_desk.webp">
+      <source data-src="assets/video/m_desk.mp4" type="video/mp4">
+      <source data-src="assets/video/m_desk.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <div class="cue cue-card" data-nx="0.585" data-ny="0.235" data-from="2.8" data-to="6.6"><span>six months ago</span><q>Not while the cohort study is running.</q></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">03</span>Thinking with her</p>
+      <h3 class="case-title">Her own reasons, returned.</h3>
+      <p class="case-scene">Near midnight she is about to agree to lead a second project.</p>
+      <ol class="beats">
+        <li data-t="0"><b>notices</b><span>She has hovered over the reply for twenty minutes.</span></li>
+        <li data-t="2.6"><b>returns</b><span>Her note from six months ago, written when she turned down an offer like this one.</span></li>
+        <li data-t="5.2"><b>asks</b><span>Does that reason still hold? The decision stays with her.</span></li>
+      </ol>
+      <dl class="contrast"><dt>Without</dt><dd>The same decision, worked out again from nothing.</dd><dt>With</dt><dd>Her past reasoning, and the choice still hers.</dd></dl>
+    </aside>
+  </article>
+
+  <article class="panel" data-scene="setback" data-pos="br">
+    <video class="panel-video" muted playsinline preload="none" data-once poster="assets/video/m_setback.webp">
+      <source data-src="assets/video/m_setback.mp4" type="video/mp4">
+      <source data-src="assets/video/m_setback.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <div class="cue cue-ear bare" data-nx="0.40" data-ny="0.25" data-from="3.0" data-to="6.6"><span>Last time, the panel asked for pilot data. You have it now.</span></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">04</span>Feeling with her</p>
+      <h3 class="case-title">One sentence, then quiet.</h3>
+      <p class="case-scene">Tonight her grant proposal was turned down, for the second time.</p>
+      <ol class="beats">
+        <li data-t="0"><b>waits</b><span>It notices she has gone still, and says nothing yet.</span></li>
+        <li data-t="3.0"><b>says</b><span>One sentence in her ear, drawn from her own story.</span></li>
+        <li data-t="6.0"><b>steps back</b><span>Then silence. The next step is hers to write.</span></li>
+      </ol>
+      <dl class="contrast"><dt>Without</dt><dd>A paragraph of generic encouragement.</dd><dt>With</dt><dd>A next step she can believe, because it comes from her.</dd></dl>
+    </aside>
+  </article>
+
+  <article class="panel" data-scene="street" data-pos="bc">
+    <video class="panel-video" muted playsinline loop preload="none" poster="assets/video/m_street.webp">
+      <source data-src="assets/video/m_street.mp4" type="video/mp4">
+      <source data-src="assets/video/m_street.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <div class="cue cue-ear bare" data-nx="0.29" data-ny="0.165" data-from="1.2" data-to="5"><span>Here, people decline by thanking first.</span></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">05</span>Living among others</p>
+      <h3 class="case-title">How to say no, here.</h3>
+      <p class="case-scene">In a town she has never visited, a shopkeeper invites her in for tea. She has a train to catch.</p>
+      <ol class="beats">
+        <li data-t="0"><b>reads</b><span>The invitation, and how warmly it was made.</span></li>
+        <li data-t="1.2"><b>whispers</b><span>How people here decline: thank first, then give the reason.</span></li>
+        <li data-t="4.5"><b>learns</b><span>Keeps the phrase for her next visit.</span></li>
+      </ol>
+      <dl class="contrast"><dt>Without</dt><dd>A polite visitor who still gives offence.</dd><dt>With</dt><dd>A warm no, in the local way.</dd></dl>
+    </aside>
+  </article>
+
+  <article class="panel" data-scene="handshake" data-pos="wide" data-pan="5.2">
+    <video class="panel-video" muted playsinline preload="none" data-once poster="assets/video/m_handshake.webp">
+      <source data-src="assets/video/m_handshake.mp4" type="video/mp4">
+      <source data-src="assets/video/m_handshake.webm" type="video/webm">
+    </video>
+    <div class="panel-shade"></div>
+    <div class="pframe">
+      <svg class="pf-svg" viewBox="0 0 1920 1080" aria-hidden="true"><path class="cue-link" data-from="0.3" data-to="1.9" d="M492,290 Q960,110 1440,410"/></svg>
+      <div class="cue cue-pulse" data-nx="0.254" data-ny="0.272" data-from="0.2" data-to="1.9"><i></i></div>
+      <div class="cue cue-pulse" data-nx="0.752" data-ny="0.385" data-from="0.2" data-to="1.9"><i></i></div>
+    </div>
+    <aside class="case">
+      <p class="case-head"><span class="num">06</span>Symbiont to symbiont</p>
+      <h3 class="case-title">Their symbionts meet first.</h3>
+      <p class="case-scene">A crowded reception. Across the room stands someone working on her problem, and neither of them knows.</p>
+      <div class="rings" aria-hidden="true">
+        <svg viewBox="0 0 300 92">
+          <g class="ring-set" transform="translate(52 46)"><circle r="42"/><circle r="32"/><circle r="22"/><circle r="12"/><text y="4">her</text></g>
+          <g class="ring-set" transform="translate(248 46)"><circle r="42"/><circle r="32"/><circle r="22"/><circle r="12"/><text y="4">him</text></g>
+          <line class="x x0" x1="94" y1="46" x2="206" y2="46"/><line class="x x1" x1="84" y1="46" x2="216" y2="46"/>
+          <line class="x x2" x1="74" y1="46" x2="226" y2="46"/><line class="x x3" x1="64" y1="46" x2="236" y2="46"/>
+        </svg>
+      </div>
+      <ol class="beats">
+        <li data-t="0"><b>visible</b><span>Each says only that its person is here.</span></li>
+        <li data-t="0.4"><b>discoverable</b><span>Public tags match: memory for wearable AI.</span></li>
+        <li data-t="0.9"><b>shareable</b><span>Within what each approved, one open question in common.</span></li>
+        <li data-t="1.5"><b>committable</b><span>A greeting is worth it. Each tells its person; they look up.</span></li>
+      </ol>
+      <p class="case-note">Under two seconds, inside the rings both have opened. Neither inner model ever crosses.</p>
+      <dl class="contrast"><dt>Without</dt><dd>Two people who leave without meeting.</dd><dt>With</dt><dd>A conversation both of them wanted.</dd></dl>
+    </aside>
+  </article>
+</section>
+
+<!-- two questions: AGI and AHI -->
+<section id="claim" class="claim">
+  <p class="claim-kicker">Two questions for the future of AI</p>
+  <div class="claim-grid">
+    <div class="claim-col agi">
+      <p class="claim-name">Artificial General Intelligence <abbr>(AGI)</abbr></p>
+      <p class="claim-q">asks how intelligent a machine can be.</p>
+      <p class="claim-path"><span>chatbots</span><i></i><span>autonomous agents</span></p>
+      <p class="claim-score">scored on what the AI completes</p>
+    </div>
+    <div class="glyph" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="14" fill="none" stroke="#eef2fb" stroke-width="1.2"/>
+        <g class="nodes">
+          <circle cx="100" cy="22" r="5"/><circle cx="167.5" cy="61" r="5"/><circle cx="167.5" cy="139" r="5"/>
+          <circle cx="100" cy="178" r="5"/><circle cx="32.5" cy="139" r="5"/><circle cx="32.5" cy="61" r="5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="claim-col ahi">
+      <p class="claim-name">AI-Augmented Human Intelligence <abbr>(AHI)</abbr></p>
+      <p class="claim-q">asks how much intelligence a machine can enable in a person.</p>
+      <p class="claim-path"><span>reactive assistants</span><i></i><span class="script">Cognitive Symbionts</span></p>
+      <p class="claim-score">scored on what the person can now do</p>
+    </div>
+  </div>
+</section>
+
+<!-- the cognitive symbiont and its loop -->
+<section id="loop" class="loop">
+  <div class="loop-body">
+    <div class="loop-copy">
+      <h2 class="loop-title">The <span class="script">Cognitive Symbiont</span></h2>
+      <p class="loop-def">An AI that lives alongside one person. It senses what they sense, keeps their life, models their world and their mind, and brings back the right part of their own context at the right moment.</p>
+      <p class="loop-gap">Its measure is the <em>cognitive gap</em>: what a person could achieve with everything they know, minus what they achieve with the little they can hold in mind at once.</p>
+      <p class="props-label">Six properties</p>
+      <ul class="props"><li>lifelong</li><li>embedded</li><li>real-time</li><li>private</li><li>low-friction</li><li>proactive</li></ul>
+    </div>
+    <figure class="loop-fig" id="loopFig">
+      <svg viewBox="0 0 520 520" aria-hidden="true">
+        <circle class="trust" cx="260" cy="250" r="232"/>
+        <circle class="orbit" cx="260" cy="250" r="170"/>
+        <circle class="flow" cx="260" cy="250" r="170"/>
+        <g class="center"><circle cx="260" cy="250" r="34"/><text x="260" y="255">the person</text></g>
+      </svg>
+      <ol class="stages">
+        <li data-i="0" style="--a:-90deg"><b>Sense and interact</b><span>Borrowed senses and voice, through the devices a person wears and the traces of their digital life.</span></li>
+        <li data-i="1" style="--a:-30deg"><b>Keep</b><span>Live context, working state and lifelong knowledge, held as one record of a life.</span></li>
+        <li data-i="2" style="--a:30deg"><b>Understand</b><span>A model of the person's situation, mind, relations and goals, on a replaceable backbone.</span></li>
+        <li data-i="3" style="--a:90deg"><b>Live alongside</b><span>Real-time, private, proactive participation, with silence as one of its choices.</span></li>
+        <li data-i="4" style="--a:150deg"><b>Act and think with</b><span>From errands to decisions, learning, feelings and other people.</span></li>
+        <li data-i="5" style="--a:210deg"><b>Grow</b><span>Learning from outcomes, and updating the record, the model and the policy.</span></li>
+      </ol>
+      <p class="trust-label">Trust around the loop: authorization, privacy, correction, exit</p>
+    </figure>
+  </div>
+  <p class="more">Read the <a href="https://arxiv.org/abs/2607.27201" target="_blank" rel="noopener">perspective paper</a> for more.</p>
+  <footer class="foot">A Perspective on Future Physical AI <span>&middot;</span> <a href="https://haofei.vip/" target="_blank" rel="noopener">Hao Fei</a> (haofei7419@gmail.com)</footer>
+</section>
+
+<script type="module" src="assets/js/site.js?v=4.0"></script>
+</body>
+</html>
