@@ -1,6 +1,6 @@
 # cognitive-symbiont.github.io
 
-Project page for the perspective paper *From Agents to Symbionts: Toward AI-Augmented Human Intelligence* (Hao Fei, University of Oxford).
+Project page for the perspective paper *From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence* (Hao Fei, University of Oxford), [arXiv:2611.05376](https://arxiv.org/abs/2611.05376).
 Live at https://cognitive-symbiont.github.io. Static site, no build step.
 
 ```
