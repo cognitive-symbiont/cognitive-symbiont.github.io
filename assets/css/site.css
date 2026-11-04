@@ -28,8 +28,8 @@ body[data-state="ready"] #loader{opacity:0;pointer-events:none}
 @keyframes breathe{0%,100%{transform:scale(.92);opacity:.5}50%{transform:scale(1.06);opacity:1}}
 
 /* nav: one link */
-#nav{position:fixed;top:0;right:0;z-index:40;padding:calc(22*var(--u)) calc(28*var(--u))}
-.pill{display:inline-flex;align-items:center;gap:.5em;height:calc(38*var(--u));padding:0 calc(16*var(--u));border-radius:999px;font-size:calc(13*var(--u));font-weight:500;letter-spacing:.02em;transition:transform .2s var(--ease),background .2s,border-color .2s,color .2s;border:1px solid var(--hair)}
+#nav{position:fixed;top:0;right:0;z-index:40;display:flex;gap:calc(10*var(--u));padding:calc(22*var(--u)) calc(28*var(--u))}
+.pill{display:inline-flex;align-items:center;gap:.5em;height:calc(34*var(--u));padding:0 calc(14*var(--u));border-radius:999px;font-size:calc(11.5*var(--u));font-weight:500;letter-spacing:.02em;transition:transform .2s var(--ease),background .2s,border-color .2s,color .2s;border:1px solid var(--hair)}
 .pill.ghost{color:var(--ink-72);background:rgba(7,11,22,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .pill.ghost:hover{color:var(--ink);border-color:rgba(255,255,255,.42)}
 .pill:hover{transform:translateY(-1px)}
